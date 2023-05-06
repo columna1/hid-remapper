@@ -160,12 +160,12 @@ void tud_hid_set_report_cb(uint8_t itf, uint8_t report_id, hid_report_type_t rep
         {
             // Numlock On: disable blink, turn led on
             board_led_write(true);
-            tuh_hid_set_report(de_addr, 0, 0, HID_REPORT_TYPE_OUTPUT, &led, sizeof(led));
+            //tuh_hid_set_report(de_addr, 0, 0, HID_REPORT_TYPE_OUTPUT, &led, sizeof(led));
         }else
         {
             // Numlock Off: back to normal blink
             board_led_write(false);
-            tuh_hid_set_report(de_addr, 0, 0, HID_REPORT_TYPE_OUTPUT, &led, sizeof(led));
+            //tuh_hid_set_report(de_addr, 0, 0, HID_REPORT_TYPE_OUTPUT, &led, sizeof(led));
         }
       }
     }
