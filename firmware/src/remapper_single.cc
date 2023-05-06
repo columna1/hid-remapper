@@ -48,7 +48,7 @@ void tuh_hid_report_received_cb(uint8_t dev_addr, uint8_t instance, uint8_t cons
 
     if (needToSendLight){
         needToSendLight = false;
-        tuh_hid_set_repoSrt(dev_addr, instance, 0, HID_REPORT_TYPE_OUTPUT, &led, sizeof(led));
+        tuh_hid_set_report(dev_addr, instance, 0, HID_REPORT_TYPE_OUTPUT, &led, sizeof(led));
     }
 
     tuh_hid_receive_report(dev_addr, instance);
