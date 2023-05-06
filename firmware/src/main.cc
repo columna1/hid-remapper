@@ -117,7 +117,7 @@ int main() {
     while (true) {
         if (read_report()) {
             led_state = true;
-            board_led_write(true);
+            //board_led_write(true);
             turn_led_off_after = time_us_64() + 50000;
             process_mapping(get_and_clear_tick_pending());
         }
@@ -142,7 +142,7 @@ int main() {
 
         if (led_state && (time_us_64() > turn_led_off_after)) {
             led_state = false;
-            board_led_write(false);
+            //board_led_write(false);
         }
     }
 

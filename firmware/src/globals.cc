@@ -14,6 +14,10 @@ volatile bool need_to_persist_config = false;
 volatile bool their_descriptor_updated = false;
 volatile bool suspended = false;
 
+volatile bool needToSendLight = false;
+uint8_t led = 0;
+uint8_t de_addr = 0;
+
 uint8_t unmapped_passthrough_layer_mask = 0b00001111;
 uint32_t partial_scroll_timeout = 1000000;
 uint32_t tap_hold_threshold = 200000;

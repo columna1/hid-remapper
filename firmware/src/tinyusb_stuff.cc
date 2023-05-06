@@ -25,9 +25,13 @@
  */
 
 #include <tusb.h>
+#include <bsp/board.h>
 
 #include "config.h"
 #include "our_descriptor.h"
+#include "remapper.h"
+#include "globals.h"
+
 
 // These IDs are bogus. If you want to distribute any hardware using this,
 // you will have to get real ones.
@@ -142,6 +146,29 @@ uint16_t tud_hid_get_report_cb(uint8_t itf, uint8_t report_id, hid_report_type_t
 
 void tud_hid_set_report_cb(uint8_t itf, uint8_t report_id, hid_report_type_t report_type, uint8_t const* buffer, uint16_t bufsize) {
     // we don't pass interface number, but report IDs are unique across interfaces
+    if (report_type == HID_REPORT_TYPE_OUTPUT)
+    {
+
+      //board_led_write(true);
+      // bufsize should be (at least) 1
+      if ( bufsize >= 1 ){
+        led = buffer[0];
+        uint8_t const kbd_leds = buffer[0];
+        needToSendLight = true;
+        //board_led_write(true);
+        if (kbd_leds & KEYBOARD_LED_NUMLOCK)
+        {
+            // Numlock On: disable blink, turn led on
+            board_led_write(true);
+            tuh_hid_set_report(de_addr, 0, 0, HID_REPORT_TYPE_OUTPUT, &led, sizeof(led));
+        }else
+        {
+            // Numlock Off: back to normal blink
+            board_led_write(false);
+            tuh_hid_set_report(de_addr, 0, 0, HID_REPORT_TYPE_OUTPUT, &led, sizeof(led));
+        }
+      }
+    }
     handle_set_report(report_id, buffer, bufsize);
 }
 
